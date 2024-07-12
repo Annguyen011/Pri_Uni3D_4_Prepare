@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Gyu_
 {
 
-    public class PlayerIdlingState : MonoBehaviour
+    public class PlayerIdlingState : PlayerMovementState
     {
         #region [Elements]
 

@@ -3,25 +3,25 @@ using UnityEngine;
 namespace Gyu_
 {
 
-    public class PlayerRunningState : MonoBehaviour
+    public class PlayerRunningState : PlayerMovementState
     {
         #region [Elements]
 
 
 
-    	#endregion
+        #endregion
 
-    	#region [Unity Methods]
-
-
-
-    	#endregion
-
-    	#region [Override]
+        #region [Unity Methods]
 
 
 
-    	#endregion
+        #endregion
+
+        #region [Override]
+
+
+
+        #endregion
 
     }
 }
