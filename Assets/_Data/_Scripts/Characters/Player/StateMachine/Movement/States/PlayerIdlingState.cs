@@ -9,19 +9,21 @@ namespace Gyu_
 
 
 
-    	#endregion
+        #endregion
 
-    	#region [Unity Methods]
-
-
-
-    	#endregion
-
-    	#region [Override]
+        #region [Unity Methods]
 
 
 
-    	#endregion
+        #endregion
+
+        #region [Override]
+
+        public PlayerIdlingState(PlayerMovementStateMachine stateMachine) : base(stateMachine)
+        {
+        }
+
+        #endregion
 
     }
 }

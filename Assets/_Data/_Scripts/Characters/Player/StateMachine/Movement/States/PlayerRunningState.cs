@@ -11,15 +11,12 @@ namespace Gyu_
 
         #endregion
 
-        #region [Unity Methods]
-
-
-
-        #endregion
 
         #region [Override]
 
-
+        public PlayerRunningState(PlayerMovementStateMachine stateMachine) : base(stateMachine)
+        {
+        }
 
         #endregion
 

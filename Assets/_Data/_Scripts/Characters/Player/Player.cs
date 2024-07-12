@@ -23,7 +23,7 @@ namespace Gyu_
             Input = GetComponent<PlayerInput>();
             Rigidbody = GetComponent<Rigidbody>();
 
-            movementStateMachine = new();
+            movementStateMachine = new(this);
         }
 
         private void Start()
