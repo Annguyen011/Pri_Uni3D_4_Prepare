@@ -13,7 +13,7 @@ namespace Gyu_
         // Components
         public PlayerInput Input { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
-
+        public Transform MainCameraTransform { get; private set; }
         #endregion
 
         #region [Unity Methods]
@@ -22,7 +22,7 @@ namespace Gyu_
         {
             Input = GetComponent<PlayerInput>();
             Rigidbody = GetComponent<Rigidbody>();
-
+            MainCameraTransform = Camera.main.transform;    
             movementStateMachine = new(this);
         }
 
