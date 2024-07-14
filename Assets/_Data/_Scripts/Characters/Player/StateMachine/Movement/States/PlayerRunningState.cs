@@ -12,7 +12,6 @@ namespace Gyu_
 
         #endregion
 
-
         #region [Override]
 
         public PlayerRunningState(PlayerMovementStateMachine stateMachine) : base(stateMachine)
@@ -23,7 +22,7 @@ namespace Gyu_
         {
             base.Enter();
 
-            speedModifier = 1f;
+            stateMachine.ResusableData.MovementModifier = movementData.PlayerRunData.SpeedModifier;
         }
 
         #endregion

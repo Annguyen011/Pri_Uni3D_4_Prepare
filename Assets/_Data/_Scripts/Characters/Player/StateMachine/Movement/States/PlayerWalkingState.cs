@@ -24,7 +24,7 @@ namespace Gyu_
         {
             base.Enter();
 
-            speedModifier = .225f;
+            stateMachine.ResusableData.MovementModifier = movementData.PlayerWalkData.SpeedModifier;
         }
 
         #endregion

@@ -2,11 +2,13 @@ using UnityEngine;
 
 namespace Gyu_
 {
-    [RequireComponent (typeof(PlayerInput))]
-    [RequireComponent (typeof(Rigidbody))]
+    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(Rigidbody))]
     public class Player : MonoBehaviour
     {
         #region [Elements]
+        [field: Header("# Settings")]
+        [field: SerializeField] public PlayerSO Data { get; private set; }
 
         private PlayerMovementStateMachine movementStateMachine;
 
@@ -22,7 +24,7 @@ namespace Gyu_
         {
             Input = GetComponent<PlayerInput>();
             Rigidbody = GetComponent<Rigidbody>();
-            MainCameraTransform = Camera.main.transform;    
+            MainCameraTransform = Camera.main.transform;
             movementStateMachine = new(this);
         }
 

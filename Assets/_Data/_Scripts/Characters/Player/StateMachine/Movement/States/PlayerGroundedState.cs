@@ -42,5 +42,17 @@ namespace Gyu_
         }
 
         #endregion
+
+        protected virtual void OnMove()
+        {
+            if (            stateMachine.ResusableData.ShouldWalk)
+            {
+                stateMachine.ChangeState(stateMachine.WalkingState);
+                return;
+            }
+
+            stateMachine.ChangeState(stateMachine.RunningState);
+        }
+
     }
 }

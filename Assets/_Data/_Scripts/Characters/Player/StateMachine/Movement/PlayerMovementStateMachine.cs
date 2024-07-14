@@ -5,6 +5,7 @@ namespace Gyu_
 
     public class PlayerMovementStateMachine : StateMachine
     {
+        public PlayerResusableData ResusableData { get; private set; }
         public Player Player { get; private set; }
         public PlayerIdlingState IdlingState { get; }
         public PlayerWalkingState WalkingState { get; }
@@ -15,6 +16,7 @@ namespace Gyu_
         {
             this.Player = player;
 
+            ResusableData = new();
             IdlingState = new(this);
             WalkingState = new(this);
             RunningState = new(this);

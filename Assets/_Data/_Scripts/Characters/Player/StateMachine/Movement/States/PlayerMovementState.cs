@@ -10,29 +10,20 @@ namespace Gyu_
         #region [Elements]
 
         // Movement data
-        protected Vector2 movementInput;
-        protected float baseMoveSpeed = 5f;
-        protected float speedModifier = 1f;
-        protected Vector3 currentTargetRotation;
-        protected Vector3 timeToReachTargetRotation;
-        protected Vector3 dampedTargetRotationCurrentVelocity;
-        protected Vector3 dampedTargetRotationPassedTime;
-        protected bool shouldWalk;
-
         protected PlayerMovementStateMachine stateMachine;
-
+        protected PlayerGroundedData movementData;
         #endregion
 
         public PlayerMovementState(PlayerMovementStateMachine stateMachine)
         {
             this.stateMachine = stateMachine;
-
+            movementData = stateMachine.Player.Data.GroundedData;
             Init();
         }
 
         private void Init()
         {
-            timeToReachTargetRotation.y = .14f;
+            stateMachine.ResusableData.TimeToReachRotation = movementData.BaseRotationData.TargetRotationReachTime;
         }
 
         #region [Override]
@@ -79,7 +70,7 @@ namespace Gyu_
 
         private void ReadMovementInput()
         {
-            movementInput = stateMachine.Player.Input.playerActions.Movement.ReadValue<Vector2>();
+            stateMachine.ResusableData.MovementInput = stateMachine.Player.Input.playerActions.Movement.ReadValue<Vector2>();
         }
 
         #endregion
@@ -88,7 +79,7 @@ namespace Gyu_
 
         protected virtual void OnWalkToggleStarted(InputAction.CallbackContext context)
         {
-            shouldWalk = !shouldWalk;
+            stateMachine.ResusableData.ShouldWalk = !stateMachine.ResusableData.ShouldWalk;
         }
 
         #endregion
@@ -97,7 +88,7 @@ namespace Gyu_
 
         private void Move()
         {
-            if (movementInput.Equals(Vector2.zero) || speedModifier.Equals(0))
+            if (stateMachine.ResusableData.MovementInput.Equals(Vector2.zero) || stateMachine.ResusableData.MovementModifier.Equals(0))
                 return;
 
             float targetRotationYAngle = Rotate(GetMovementInputDirection());
@@ -107,7 +98,7 @@ namespace Gyu_
         }
 
 
-        protected float GetMovementSpeed() => baseMoveSpeed * speedModifier;
+        protected float GetMovementSpeed() => movementData.BaseSpeed * stateMachine.ResusableData.MovementModifier;
 
         protected Vector3 GetPlayerHorizontalVelocity()
         {
@@ -116,7 +107,7 @@ namespace Gyu_
             return playerHorizontalVelocity;
         }
 
-        protected Vector3 GetMovementInputDirection() => new(movementInput.x, 0f, movementInput.y);
+        protected Vector3 GetMovementInputDirection() => new(stateMachine.ResusableData.MovementInput.x, 0f, stateMachine.ResusableData.MovementInput.y);
 
         protected void ResetVelocity()
         {
@@ -142,7 +133,7 @@ namespace Gyu_
             if (shouldConsiderCameraRotation)
                 directionAngle = AddCameraDirectionAngle(directionAngle);
 
-            if (directionAngle != currentTargetRotation.y)
+            if (directionAngle != stateMachine.ResusableData.CurrentTargetRotation.y)
                 UpdateRotationData(directionAngle);
 
             return directionAngle;
@@ -150,23 +141,23 @@ namespace Gyu_
 
         private void UpdateRotationData(float targetAngle)
         {
-            currentTargetRotation.y = targetAngle;
+            stateMachine.ResusableData.CurrentTargetRotation.y = targetAngle;
 
-            dampedTargetRotationPassedTime.y = 0f;
+            stateMachine.ResusableData.DampedTargetRotationPassedTime.y = 0f;
         }
 
         protected void RotateTowardTargetRotation()
         {
             float currentYAngle = stateMachine.Player.Rigidbody.rotation.eulerAngles.y;
 
-            if (currentYAngle.Equals(currentTargetRotation.y))
+            if (currentYAngle.Equals(stateMachine.ResusableData.CurrentTargetRotation.y))
                 return;
 
-            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, currentTargetRotation.y,
-                ref dampedTargetRotationCurrentVelocity.y, timeToReachTargetRotation.y -
-                dampedTargetRotationPassedTime.y);
+            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, stateMachine.ResusableData.CurrentTargetRotation.y,
+                ref stateMachine.ResusableData.DampedTargetRotationCurrentVelocity.y, stateMachine.ResusableData.TimeToReachRotation.y -
+                            stateMachine.ResusableData.DampedTargetRotationPassedTime.y);
 
-            dampedTargetRotationPassedTime.y += Time.deltaTime;
+            stateMachine.ResusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
 
             Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);
             stateMachine.Player.Rigidbody.MoveRotation(targetRotation);

@@ -29,7 +29,7 @@ namespace Gyu_
         {
             base.Enter();
 
-            speedModifier = 0f;
+            stateMachine.ResusableData.MovementModifier = 0f;
             ResetVelocity();
         }
 
@@ -37,7 +37,7 @@ namespace Gyu_
         {
             base.Update();
 
-            if (movementInput.Equals(Vector2.zero))
+            if (stateMachine.ResusableData.MovementInput.Equals(Vector2.zero))
                 return;
 
             OnMove();
@@ -45,19 +45,6 @@ namespace Gyu_
 
         #endregion
 
-        #region [Move]
 
-        private void OnMove()
-        {
-            if (shouldWalk)
-            {
-                stateMachine.ChangeState(stateMachine.WalkingState);
-                return;
-            }
-
-            stateMachine.ChangeState(stateMachine.RunningState);
-        }
-
-        #endregion
     }
 }
