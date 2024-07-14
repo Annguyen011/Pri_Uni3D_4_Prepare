@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Gyu_
 {
 
-    public class PlayerSprintingState : PlayerMovementState
+    public class PlayerSprintingState : PlayerGroundedState
     {
         #region [Elements]
 

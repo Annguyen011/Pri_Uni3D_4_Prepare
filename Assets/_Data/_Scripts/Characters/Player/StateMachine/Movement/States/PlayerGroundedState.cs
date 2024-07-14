@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace Gyu_
 {
 
-    public class PlayerRunningState : PlayerGroundedState
+    public class PlayerGroundedState : PlayerMovementState
     {
         #region [Elements]
 
@@ -12,18 +12,9 @@ namespace Gyu_
 
         #endregion
 
-
         #region [Override]
-
-        public PlayerRunningState(PlayerMovementStateMachine stateMachine) : base(stateMachine)
+        public PlayerGroundedState(PlayerMovementStateMachine stateMachine) : base(stateMachine)
         {
-        }
-
-        public override void Enter()
-        {
-            base.Enter();
-
-            speedModifier = 1f;
         }
 
         #endregion
@@ -45,12 +36,11 @@ namespace Gyu_
             stateMachine.Player.Input.playerActions.Movement.canceled -= OnMovementCancel;
         }
 
-        protected override void OnWalkToggleStarted(InputAction.CallbackContext context)
+        protected virtual void OnMovementCancel(InputAction.CallbackContext context)
         {
-            base.OnWalkToggleStarted(context);
-
-            stateMachine.ChangeState(stateMachine.WalkingState);
+            stateMachine.ChangeState(stateMachine.IdlingState);
         }
+
         #endregion
     }
 }

@@ -1,9 +1,11 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Gyu_
 {
 
-    public class PlayerIdlingState : PlayerMovementState
+    public class PlayerIdlingState : PlayerGroundedState
     {
         #region [Elements]
 
@@ -23,7 +25,39 @@ namespace Gyu_
         {
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+
+            speedModifier = 0f;
+            ResetVelocity();
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            if (movementInput.Equals(Vector2.zero))
+                return;
+
+            OnMove();
+        }
+
         #endregion
 
+        #region [Move]
+
+        private void OnMove()
+        {
+            if (shouldWalk)
+            {
+                stateMachine.ChangeState(stateMachine.WalkingState);
+                return;
+            }
+
+            stateMachine.ChangeState(stateMachine.RunningState);
+        }
+
+        #endregion
     }
 }
