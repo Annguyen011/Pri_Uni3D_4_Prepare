@@ -29,21 +29,6 @@ namespace Gyu_
 
         #region [Input]
 
-        protected override void AddInputActionCallbacks()
-        {
-            base.AddInputActionCallbacks();
-
-            stateMachine.Player.Input.playerActions.Movement.canceled += OnMovementCancel;
-        }
-
-
-        protected override void RemoveInputActionCallbacks()
-        {
-            base.RemoveInputActionCallbacks();
-
-            stateMachine.Player.Input.playerActions.Movement.canceled -= OnMovementCancel;
-        }
-
         protected override void OnWalkToggleStarted(InputAction.CallbackContext context)
         {
             base.OnWalkToggleStarted(context);
