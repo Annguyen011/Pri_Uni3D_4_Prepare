@@ -34,11 +34,5 @@ namespace Gyu_
 
         #endregion
 
-        #region [Override]
-
-
-
-        #endregion
-
     }
 }

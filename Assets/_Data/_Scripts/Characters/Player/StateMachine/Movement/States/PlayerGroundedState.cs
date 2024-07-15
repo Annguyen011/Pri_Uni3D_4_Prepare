@@ -45,7 +45,7 @@ namespace Gyu_
 
         protected virtual void OnMove()
         {
-            if (            stateMachine.ResusableData.ShouldWalk)
+            if (stateMachine.ResusableData.ShouldWalk)
             {
                 stateMachine.ChangeState(stateMachine.WalkingState);
                 return;
