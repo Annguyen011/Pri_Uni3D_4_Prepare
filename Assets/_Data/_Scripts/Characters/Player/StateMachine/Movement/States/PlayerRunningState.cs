@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace Gyu_
 {
 
-    public class PlayerRunningState : PlayerGroundedState
+    public class PlayerRunningState : PlayerMovingState
     {
         #region [Elements]
 

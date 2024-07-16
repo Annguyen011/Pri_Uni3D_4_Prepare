@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Gyu_
 {
 
-    public class PlayerSprintingState : PlayerMovingState
+    public class PlayerMovingState : PlayerGroundedState
     {
         #region [Elements]
 
@@ -11,10 +11,8 @@ namespace Gyu_
 
         #endregion
 
-
         #region [Override]
-
-        public PlayerSprintingState(PlayerMovementStateMachine stateMachine) : base(stateMachine)
+        public PlayerMovingState(PlayerMovementStateMachine stateMachine) : base(stateMachine)
         {
         }
 

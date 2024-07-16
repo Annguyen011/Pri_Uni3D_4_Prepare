@@ -10,6 +10,9 @@ namespace Gyu_
         [field: Header("# Settings")]
         [field: SerializeField] public PlayerSO Data { get; private set; }
 
+        [field: Header("# Collision data")]
+        [field: SerializeField] public CapsualColliderUtilities ColliderUtilities { get; private set; }
+
         private PlayerMovementStateMachine movementStateMachine;
 
         // Components
@@ -25,8 +28,19 @@ namespace Gyu_
             Input = GetComponent<PlayerInput>();
             Rigidbody = GetComponent<Rigidbody>();
             MainCameraTransform = Camera.main.transform;
+
             movementStateMachine = new(this);
+            //ColliderUtilities = new();
+            //ColliderUtilities.Init(this.gameObject);
+            //ColliderUtilities.CalcCaptureColliDimension();
         }
+
+        //private void OnValidate()
+        //{
+        //    ColliderUtilities = new();
+        //    ColliderUtilities.Init(gameObject);
+        //    ColliderUtilities.CalcCaptureColliDimension();
+        //}
 
         private void Start()
         {
@@ -45,7 +59,5 @@ namespace Gyu_
         }
 
         #endregion
-
-
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 namespace Gyu_
 {
 
-    public class PlayerWalkingState : PlayerGroundedState
+    public class PlayerWalkingState : PlayerMovingState
     {
         #region [Elements]
 
